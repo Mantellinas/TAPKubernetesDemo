@@ -1,0 +1,26 @@
+apiVersion : batch/v1
+kind: Job
+metadata:
+  name: queue-prod-job
+  namespace: demospace
+spec:
+  parallelism: 1
+  template:
+    metadata:
+      name: queue-prod-job
+    spec:
+      containers:
+      - name : queue-prod-job
+        image: rosariocannavo/tapdemoproducer
+        imagePullPolicy: "Always"
+        ports: 
+          - containerPort: 8080
+        env  :
+          - name: BTALK_IP
+            valueFrom:
+              configMapKeyRef:
+                name  : beanstalk-configmap
+                key   : queue_url
+        
+      restartPolicy   : OnFailure
+

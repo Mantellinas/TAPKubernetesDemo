@@ -1,0 +1,36 @@
+# BEANSTALK DEPLOYMENT DEFINITION
+kind: Deployment 
+apiVersion: apps/v1
+metadata:
+  name: beanstalk-dep
+  namespace: demospace 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beanstalk-dep
+  template:
+    metadata:
+      labels:
+        app: beanstalk-dep
+    spec:
+      containers:
+        - image: schickling/beanstalkd      
+          name : beanstalk-dep
+          args :                           
+            - -p
+            - "11300"
+---
+# SERVICE CREATION
+apiVersion: v1
+kind: Service
+metadata:
+  name: beanstalk-svc
+  namespace: demospace
+spec:
+  selector:
+    app: beanstalk-dep
+  ports:
+  - port: 11300
+    protocol: TCP
+    targetPort: 11300

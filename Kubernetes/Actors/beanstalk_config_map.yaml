@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: beanstalk-configmap
+   namespace: demospace
+data:
+   queue_url: beanstalk-svc

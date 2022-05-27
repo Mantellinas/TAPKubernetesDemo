@@ -1,0 +1,4 @@
+pystalkd
+PyYAML
+nltk
+
