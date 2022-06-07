@@ -23,4 +23,3 @@ spec:
                 key   : queue_url
         
       restartPolicy   : OnFailure
-
